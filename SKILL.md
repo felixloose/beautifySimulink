@@ -1,6 +1,23 @@
+---
+name: beautify-simulink-diagram
+description: Use when creating or improving the visual layout of a Simulink block diagram, including requests to beautify, tidy, align, space, group, or reroute a model. Apply readable layout conventions while preserving model behavior and connectivity.
+---
+
 # Simulink diagram visual conventions
 
 Use these conventions as a readable default, not as a rigid template. Preserve a model's established layout when it is already clear, and follow explicit project or user conventions where they differ. Improve presentation without changing model behavior, connectivity, hierarchy, or execution order.
+
+A diagram that is already clear is a good starting point. Make targeted refinements to it rather than redesigning it. A compact diagram is not automatically better: prefer mostly straight lines with few crossings, even if the layout is less compact.
+
+**Never use automatic layout.** Do not call `Simulink.BlockDiagram.arrangeSystem` or any auto-arrange or autolayout feature, including the layout pass that runs after `model_edit`. Position every change explicitly, for example with `set_param(block, 'Position', ...)`, and keep the original layout as the baseline. Auto-arrange reshuffles every block and line route and is not an acceptable beautify step.
+
+## Workflow
+
+1. **Inspect the diagram.** Identify the model or subsystem in scope, its main signal paths, feedback paths, functional groups, and existing visual conventions. Preserve layout choices that already make the model clear.
+2. **Choose the smallest useful layout change.** Decide the flow direction and the blocks or lines that need adjustment before editing. Prefer changes to block positions, line routing, and spacing over structural edits.
+3. **Apply the layout.** Use supported Simulink editing tools or APIs. Keep the existing blocks, ports, connections, hierarchy, and execution order. Treat subsystem restructuring, changing block parameters, and changing signal connectivity as out of scope unless explicitly requested.
+4. **Verify the result.** Check that the changed layout is clearer and that the model's blocks, port order, line endpoints and branches, hierarchy, and execution-relevant settings remain unchanged. Fix any regression before finishing.
+5. **Use visual QA when available.** With the model loaded in a MATLAB session that supports display, export the diagram to a temporary PNG and inspect it. For example, `print(['-s' modelName], '-dpng', [tempname '.png'])` prints one model or subsystem diagram. MATLAB no-display mode disables Simulink printing; when it is unavailable, report that visual inspection was not performed and rely only on checks that were actually completed.
 
 ## Flow direction
 
@@ -12,6 +29,7 @@ Use these conventions as a readable default, not as a rigid template. Preserve a
 ## Placement and alignment
 
 - Align blocks with related roles or stages, using consistent rows or columns and a shared visual grid where practical.
+- Align blocks that sit near each other along a shared vertical grid, typically matching left edges (or centers) for a column of blocks. Most nearby blocks should align this way. Align a block only when it stays clear of other blocks and lines.
 - Place related blocks near one another and keep the overall progression balanced; avoid arbitrary offsets and unnecessary zigzags.
 - Preserve meaningful subsystem boundaries, port ordering, and existing spatial cues. Do not move blocks across groups or reorder them if that would make relationships less clear.
 
@@ -23,7 +41,8 @@ Use these conventions as a readable default, not as a rigid template. Preserve a
 
 ## Signal routing and crossings
 
-- Prefer direct, orthogonal routes with as few bends as practical. Keep lines from running through blocks, labels, or unrelated groups.
+- Prefer direct, orthogonal routes with as few bends as practical. Keep signal lines mostly linear: a horizontal or vertical run should dominate each connection. Keep lines from running through blocks, labels, or unrelated groups.
+- Resize blocks when that improves line formatting, for example making a block taller so its input and output ports line up with straight horizontal signals. Keep block size changes modest and consistent within a group.
 - Minimize crossings, especially on the main signal path. Reroute a line when doing so improves clarity without making it excessively long or convoluted.
 - When crossings cannot reasonably be avoided, keep them unambiguous and preserve Simulink's connection semantics. Do not alter connectivity merely to improve appearance.
 - Keep feedback, control, and other secondary paths visually distinct from the main flow when useful, without relying on color alone.
