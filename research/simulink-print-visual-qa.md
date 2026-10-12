@@ -1,8 +1,8 @@
 # Verifying the Simulink print workflow for visual QA
 
-**Context:** Research ticket for [felixloose/beautifySimulink#4](https://github.com/felixloose/beautifySimulink/issues/4), supporting the wayfinding map [felixloose/beautifySimulink#1 — "Specify a readable Simulink diagram skill"](https://github.com/felixloose/beautifySimulink/issues/1).
+**Context:** Research ticket for [felixloose/beautifySimulink#2](https://github.com/felixloose/beautifySimulink/issues/2), supporting the wayfinding map [felixloose/beautifySimulink#1 — "Specify a readable Simulink diagram skill"](https://github.com/felixloose/beautifySimulink/issues/1).
 
-**Branch note:** This is a throwaway research branch (`research/simulink-print-visual-qa`). It is not intended to be merged via PR; it exists only to capture findings for issue #4 per the Wayfinder research-ticket procedure.
+**Branch note:** This is a throwaway research branch (`research/simulink-print-visual-qa`). It is not intended to be merged via PR; it exists only to capture findings for issue #2 per the Wayfinder research-ticket procedure.
 
 **Question investigated:** What supported MATLAB/Simulink command/API sequence can an autonomous agent use to render a Simulink block diagram to an image for visual QA — including output format, layout/print constraints, safe temp-file handling, and limitations to surface (especially for headless/CI use)?
 
