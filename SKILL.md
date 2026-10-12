@@ -34,6 +34,14 @@ Use these conventions as a readable default, not as a rigid template. Preserve a
 - Use existing subsystems, areas, or other established grouping mechanisms when they clarify structure. Add grouping only when it helps navigation; avoid excessive nesting or decorative boundaries.
 - Keep group labels concise and consistent. A group should describe its contents, not imply behavior that the model does not have.
 
+### Subsystem hierarchy
+
+- In a new model, keep short, straightforward logic visible at the parent level when seeing its steps and connections helps explain the model. Group a coherent functional stage when it has enough internal detail to distract from the parent-level flow, represents a meaningful stage or concern, or is reused.
+- Make each subsystem boundary communicate a useful responsibility. Do not create a subsystem for every block, split a simple sequence into arbitrary pieces, or group unrelated logic just to fill out a hierarchy.
+- Keep the hierarchy as shallow as practical: add a nested level only when it reveals a meaningful subfunction, and ensure each level helps readers understand either the overall flow or the subsystem's purpose.
+- Name subsystems for their function or domain responsibility using concise, specific terms consistent with the model's terminology. Avoid generic names that do not distinguish the subsystem's role.
+- Treat subsystem organization as a structural change, not automatically as a visual-only change. Preserve the intended behavior, signal connectivity, port order, execution order, and relevant subsystem semantics when grouping logic; do not introduce a boundary that changes behavior merely to improve readability.
+
 ## Labels and annotations
 
 - Use concise, descriptive names for blocks, signals, groups, and model interfaces. Preserve domain terminology and existing naming conventions.
